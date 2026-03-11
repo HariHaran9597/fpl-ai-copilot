@@ -1,74 +1,130 @@
-# ⚽ FPL AI Copilot
+<div align="center">
+  <h1>⚽ FPL AI Copilot</h1>
+  <p><strong>An intelligent, multi-agent AI system analyzing Fantasy Premier League data to provide mathematically optimized transfer and captaincy recommendations.</strong></p>
 
-**An intelligent, multi-agent AI system designed to analyze Fantasy Premier League data and provide mathematically optimized transfer and captaincy recommendations.**
+  <!-- Badges -->
+  <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" /></a>
+  <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi" alt="FastAPI" /></a>
+  <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" /></a>
+  <a href="https://langchain.com/"><img src="https://img.shields.io/badge/LangGraph-LLM_Orchestration-1c1c1c?style=for-the-badge&logo=langchain&logoColor=white" alt="LangGraph" /></a>
+</div>
 
-Built using a hybrid deterministic/LLM reasoning architecture for extreme token efficiency and deep domain accuracy.
+<br />
 
-## 🚀 Key Features
+## 📖 Overview
 
-*   **Multi-Agent LangGraph Pipeline**: Routes data logically between mathematical scoring nodes and specialized ReAct Agents.
-*   **LLM Inference (Moonshot AI via Groq)**: Powered by `kimi-k2-instruct-0905` for high-speed, cost-effective, intelligent strategic reasoning.
-*   **Token-Efficient Processing**: Python pre-processes 700+ players using algorithmic sorting before sending the curated contextual payload to the LLMs.
-*   **Dynamic Tool Calling**: ReAct agents utilize live FPL API price tracking to execute perfect constraints for new player budget calculations.
-*   **Modern Premium UI (Vite/React)**: A stunning dark-mode/glassmorphic frontend that consumes the AI pipeline results via REST.
-*   **FastAPI Backend**: Clean decoupling of the AI orchestration layer from the presentation layer. 
+**FPL AI Copilot** represents a modern approach to AI engineering: decoupling strict mathematical constraints from qualitative LLM reasoning. Because LLMs notoriously struggle with the *Knapsack Optimization Problem* (e.g., maximizing squad Expected Points within a strict £100m budget), this pipeline delegates deterministic math to Python solvers and utilizes Generative AI strictly as an **Explanatory Layer** and **Contextual RAG Evaluator**.
 
-## 🏗️ Architecture Stack
+The result is a blazingly fast, hallucination-free dashboard that serves premium football analytics and actionable intelligence to Fantasy Premier League managers.
 
-*   **Backend Orchestration**: LangGraph, LangChain, Python
-*   **REST API Layer**: FastAPI, Uvicorn
-*   **Model Provider**: Groq API (Kimi Model)
-*   **Frontend Client**: React, Vite, Vanilla CSS
-*   **Data Source**: Official Fantasy Premier League JSON endpoints
+---
 
-## 🏃‍♂️ Getting Started
+## ✨ Key Features
+
+*   🧠 **Hybrid Optimization Pipeline:** Custom Python knapsack solvers compute Expected Points (xP) maximizing transfers across 600+ players, eliminating LLM arithmetic hallucinations.
+*   📰 **Multi-Modal RAG (DuckDuckGo):** Real-time unstructured web scraping injects live news and press conference transcripts into the prompt envelope, overriding mathematical selections if a player is an injury risk.
+*   🤖 **LangGraph Orchestration:** Determines execution graph based on live API health, routing payloads between deterministic statistical nodes and the Kimi/Groq evaluation model.
+*   📊 **Premium Analytical UI:** A responsive React/Vite frontend featuring dynamic pitch formation rendering, opponent FDR (Fixture Difficulty Rating) color mapping, and interactive player comparison radar charts.
+*   🛡️ **Enterprise Observability:** Fully instrumented with `LangSmith` for token-cost evaluation, graph tracing, and prompt-latency logging.
+
+---
+
+## 🏗️ Architecture
+
+```mermaid
+graph TD
+    A[FPL Official API] -->|Raw Player/Fixture Data| B(FastAPI Backend)
+    B --> C{LangGraph State Machine}
+    
+    C --> D[Math Node: FDR & Form Calc]
+    C --> E[Py Solver: Knapsack Transfer Opt]
+    
+    D --> F[DuckDuckGo RAG Search]
+    F -->|Live News Context| G[Captain AI Agent]
+    E -->|Proven Optimal Transfer| H[Transfer AI Agent]
+    
+    G -->|Qualitative Justification| I[Report Aggregator]
+    H -->|Explanatory Reasoning| I
+    
+    I -->|Structured JSON Payload| J[React/Vite Dashboard]
+```
+
+---
+
+## 💻 Tech Stack
+
+### AI & Backend
+*   **LangGraph / LangChain:** Core agent orchestration and state management
+*   **Groq (Kimi Model):** Ultra-low latency LLM inference
+*   **DuckDuckGo Search:** Live retrieval for RAG context
+*   **PuLP:** Linear optimization for budget/transfer constraints
+*   **FastAPI / Uvicorn:** REST API layer handling async requests
+*   **LangSmith:** Prompt tracing and telemetry
+
+### Frontend
+*   **React (Vite):** Lightning-fast HMR and build pipeline
+*   **Recharts:** Interactive radar and temporal point-history plotting
+*   **Vanilla CSS:** Custom-engineered glassmorphic dark-mode design system
+
+---
+
+## 🚀 Quick Start (Local Development)
+
+### Prerequisites
+*   Python 3.10+
+*   Node.js 18+
+*   A [Groq API Key](https://console.groq.com/)
 
 ### 1. Backend Setup
 
 ```bash
-# Set up a virtual environment and install dependencies
+# Clone the repository
+git clone https://github.com/HariHaran9597/fpl-ai-copilot.git
+cd fpl-ai-copilot
+
+# Set up the Python virtual environment
 python -m venv venv
-source venv/bin/activate  # Or .\venv\Scripts\activate on Windows
+source venv/bin/activate  # Windows: .\venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
 
-# Add your GROQ API Key
-echo 'GROQ_API_KEY="your_api_key_here"' > .env
+# Configure environment variables
+echo "GROQ_API_KEY=your_api_key_here" > .env
+# Optional: Enable LangSmith Tracing
+echo "LANGCHAIN_TRACING_V2=true" >> .env
 
-# Run the backend REST server
-uvicorn app.main:app --host 127.0.0.1 --port 8000
+# Start the FastAPI server
+uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
 ### 2. Frontend Setup
 
 ```bash
-# Navigate to the frontend directory
+# Open a new terminal and navigate to the frontend directory
 cd frontend
 
-# Install Vite and React dependencies
+# Install Node modules
 npm install
 
-# Start the premium dashboard
+# Start the Vite development server
 npm run dev
 ```
 
-Visit the dashboard at `http://127.0.0.1:5173/` and input your FPL Manager ID!
+Navigate to `http://localhost:5173`, input your FPL Manager ID, and watch the pipeline run!
 
-## 🧪 Backtesting
+---
 
-The repository includes a backtesting and analytics suite to benchmark the Agentic pipeline's recommended picks vs. global averages. 
+## 🔮 Future Roadmap (v2)
 
-Run the test evaluation script:
-```bash
-python tests/evaluate_past_gameweeks.py
-```
+While the current version provides excellent qualitative reasoning and a premium interface, the roadmap for the next iteration focuses on predictive modeling limits:
 
-*Results yielded a simulated 27.3% point delta improvement over standard baseline manager decisions.*
+1. **XGBoost Expected Points (xP) Integration:** Replacing the current heuristic form/FDR formulas with a trained LightGBM/XGBoost regressor to predict 5-Gameweek rolling Expected Points.
+2. **Dedicated Vector DB:** Moving from live DuckDuckGo API searches to a cron-job fed Pinecone/FAISS database continually scraping `r/FantasyPL` for instantaneous context retrieval.
+3. **Structured Sub-Agents:** Reintroducing strict JSON-schema tool calling (`bind_tools`) specifically for constraint-checking agents validating squad injury probabilities.
 
-## 🔮 Future Roadmap (v2 Architecture)
+---
 
-While the current version provides excellent qualitative reasoning and a premium interface, the next iteration of the pipeline focuses on mathematical optimization and deep contextual grounding:
-
-1. **RAG Pipeline Integration (Press Conferences & News)**: A Vector DB (Pinecone/FAISS) pulling live data from Reddit and Twitter to provide the LLM with immediate injury news and lineup leaks before rendering captaincy decisions.
-2. **Predictive Expected Points (xP) ML Model**: Shifting the core Knapsack optimization problem to a deterministic solver (PuLP/SciPy) fed by an underlying XGBoost model trained on historical player metric data, with the LLM serving strictly as the "Explanatory Layer".
-3. **Structured Tool Calling**: Reverting to native function calling (JSON schema adherence) for agents to dynamically interact with real-time FPL data rather than pre-computing contextual constraints in Python.
-4. **LangSmith Observability**: Adding comprehensive prompt tracing, latency monitoring, and token-cost evaluation across the graph.
+<div align="center">
+  <p>Engineered for the 2024/25 Premier League Season.</p>
+</div>
