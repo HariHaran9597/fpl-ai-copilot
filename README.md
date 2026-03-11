@@ -114,17 +114,12 @@ npm run dev
 Navigate to `http://localhost:5173`, input your FPL Manager ID, and watch the pipeline run!
 
 ---
+<img width="2142" height="1080" alt="image" src="https://github.com/user-attachments/assets/549e71e7-8892-4081-8517-e986ef4a52dd" />
 
-## 🔮 Future Roadmap (v2)
+<img width="2184" height="1085" alt="image" src="https://github.com/user-attachments/assets/c2e1a9c9-509e-492b-a1a1-3dbbc99055e9" />
 
-While the current version provides excellent qualitative reasoning and a premium interface, the roadmap for the next iteration focuses on predictive modeling limits:
 
-1. **XGBoost Expected Points (xP) Integration:** Replacing the current heuristic form/FDR formulas with a trained LightGBM/XGBoost regressor to predict 5-Gameweek rolling Expected Points.
-2. **Dedicated Vector DB:** Moving from live DuckDuckGo API searches to a cron-job fed Pinecone/FAISS database continually scraping `r/FantasyPL` for instantaneous context retrieval.
-3. **Structured Sub-Agents:** Reintroducing strict JSON-schema tool calling (`bind_tools`) specifically for constraint-checking agents validating squad injury probabilities.
+<img width="1179" height="1110" alt="image" src="https://github.com/user-attachments/assets/3fb282fa-cab6-4ed1-b1be-836081ff2808" />
 
----
 
-<div align="center">
-  <p>Engineered for the 2024/25 Premier League Season.</p>
-</div>
+
