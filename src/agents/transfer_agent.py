@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 def recommend_transfers_node(state: FPLState) -> dict:
     """
     Hybrid Mathematical/GenAI Transfer Solver.
-    Takes the mathematically proven optimal Knapsack transfer from the Py solver 
+    Takes the best budget-constrained transfer from the Python solver
     and uses the LLM solely as an 'Explainer Layer'.
     """
     if state.get("error"):
@@ -22,7 +22,7 @@ def recommend_transfers_node(state: FPLState) -> dict:
     opt = list(transfer_options.values())[0]
 
     context = f"""
-    The mathematical 'Knapsack Solver' has proven the optimal transfer to maximize Expected Points (xP):
+    The deterministic transfer solver selected this move to maximize Expected Points (xP) within the budget:
     
     OUT: {opt['player_out']} (Current Projected xP over 5 GWs: {opt.get('player_out_xp', 0)})
     IN: {opt['player_in']} (New Projected xP over 5 GWs: {opt.get('player_in_xp', 0)})

@@ -178,7 +178,7 @@ def fetch_data_node(state: FPLState) -> dict:
 
         # ── Pre-compute Mathematical Optimal Transfer ──
         # Fixes the LLM optimization limitation by using a deterministic solver on Expected Points (xP)
-        from ..optimization.solver import optimize_transfer_knapsack
+        from ..optimization.solver import optimize_budget_transfer
         
         my_team_ids = {p['id'] for p in my_team_players}
         available_players = []
@@ -186,7 +186,7 @@ def fetch_data_node(state: FPLState) -> dict:
             if el['id'] not in my_team_ids and el.get('status', 'a') == 'a':
                 available_players.append(_build_player_obj(el, None, teams_map, fixtures_by_team))
                 
-        p_out, p_in, xp_gain = optimize_transfer_knapsack(my_team_players, available_players, bank_balance, fixtures_by_team)
+        p_out, p_in, xp_gain = optimize_budget_transfer(my_team_players, available_players, bank_balance, fixtures_by_team)
         
         transfer_options = {}
         if p_out and p_in:

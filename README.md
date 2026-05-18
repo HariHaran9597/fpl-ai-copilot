@@ -15,19 +15,19 @@
 
 Built LangGraph-based FPL AI assistant over live API data, combining deterministic constrained optimization with Groq-powered agents for captain selection, transfer explanation, and report generation.
 
-**FPL AI Copilot** represents a modern approach to AI engineering: decoupling strict mathematical constraints from qualitative LLM reasoning. Because LLMs notoriously struggle with the *Knapsack Optimization Problem* (e.g., maximizing squad Expected Points within a strict £100m budget), this pipeline delegates deterministic math to Python solvers and utilizes Generative AI strictly as an **Explanatory Layer** and **Contextual RAG Evaluator**.
+**FPL AI Copilot** represents a modern approach to AI engineering: decoupling strict mathematical constraints from qualitative LLM reasoning. Because LLMs can struggle with budget-constrained transfer decisions, this pipeline delegates deterministic math to Python solvers and uses Generative AI as an **Explanatory Layer** and **Contextual RAG Evaluator**.
 
-The system utilizes a LangGraph workflow with data, fixture, form, captain, transfer, and report nodes; 3 agent modules for captain, transfer explanation, and report generation. The result is a blazingly fast, hallucination-free dashboard that serves premium football analytics and actionable intelligence to Fantasy Premier League managers.
+The system utilizes a LangGraph workflow with data, fixture, form, captain, transfer, and report nodes; 3 agent modules for captain, transfer explanation, and report generation. The result is a grounded, constraint-aware dashboard that serves football analytics and actionable intelligence to Fantasy Premier League managers.
 
 ---
 
 ## ✨ Key Features
 
-*   🧠 **Hybrid Optimization Pipeline:** Custom Python knapsack solvers compute Expected Points (xP) maximizing transfers across 600+ players, eliminating LLM arithmetic hallucinations.
+*   🧠 **Hybrid Optimization Pipeline:** Custom Python constrained-optimization logic computes Expected Points (xP) across 600+ players, keeping arithmetic and budget checks outside the LLM.
 *   📰 **Multi-Modal RAG (DuckDuckGo):** Real-time unstructured web scraping injects live news and press conference transcripts into the prompt envelope, overriding mathematical selections if a player is an injury risk.
 *   🤖 **LangGraph Orchestration:** Determines execution graph based on live API health, routing payloads between deterministic statistical nodes and the Kimi/Groq evaluation model.
 *   📊 **Premium Analytical UI:** A responsive React/Vite frontend featuring dynamic pitch formation rendering, opponent FDR (Fixture Difficulty Rating) color mapping, and interactive player comparison radar charts.
-*   🛡️ **Enterprise Observability:** Fully instrumented with `LangSmith` for token-cost evaluation, graph tracing, and prompt-latency logging.
+*   🛡️ **LangSmith Tracing Support:** Optional LangSmith configuration for graph tracing and prompt-latency inspection.
 
 ---
 
@@ -39,7 +39,7 @@ graph TD
     B --> C{LangGraph State Machine}
     
     C --> D[Math Node: FDR & Form Calc]
-    C --> E[Py Solver: Knapsack Transfer Opt]
+    C --> E[Py Solver: Budget-Constrained Transfer Opt]
     
     D --> F[DuckDuckGo RAG Search]
     F -->|Live News Context| G[Captain AI Agent]

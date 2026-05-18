@@ -2,8 +2,8 @@ from typing import List, Dict, Any, Tuple, Optional
 
 def calculate_expected_points(player: dict, fixtures_by_team: dict) -> float:
     """
-    Mock Expected Points (xP) ML Model.
-    In a real app, this would be an XGBoost model. For now, it's a determinist formula
+    Heuristic Expected Points (xP) scoring function.
+    In a production app, this could be replaced with a trained forecasting model. For now, it is a deterministic formula
     combining Form, ICT Index, and upcoming Fixture Difficulty (FDR).
     """
     form = float(player.get('form', 0))
@@ -22,14 +22,14 @@ def calculate_expected_points(player: dict, fixtures_by_team: dict) -> float:
     xp = (form * 0.5 + ict * 0.5) * fdr_multiplier
     return round(xp, 2)
 
-def optimize_transfer_knapsack(
+def optimize_budget_transfer(
     current_squad: List[Dict[str, Any]], 
     available_players: List[Dict[str, Any]], 
     bank_balance: float,
     fixtures_by_team: Dict[int, List[Dict[str, Any]]]
 ) -> Tuple[Dict[str, Any], Dict[str, Any], float]:
     """
-    Uses deterministic constrained optimization to solve the 1-transfer Knapsack problem.
+    Uses deterministic constrained optimization to solve the 1-transfer budget problem.
     Maximizes total squad xP while respecting budget and positional constraints.
     """
     # 1. Calculate xP for all players
@@ -47,9 +47,8 @@ def optimize_transfer_knapsack(
     best_tx = None
     max_xp_gain = -999.0
 
-    # Because a 1-transfer subset is small (15 * ~300 viable options), 
-    # we can solve this with constrained iteration rather than full PuLP for speed,
-    # but the logic remains a Knapsack search constraint solver.
+    # Because a 1-transfer subset is small (15 * ~300 viable options),
+    # constrained iteration is simpler and faster than a full LP solver.
     # To keep it rigorous, we filter to meaningful options.
     
     for p_out in current_squad:
