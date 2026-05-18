@@ -13,9 +13,11 @@
 
 ## 📖 Overview
 
+Built LangGraph-based FPL AI assistant over live API data, combining deterministic constrained optimization with Groq-powered agents for captain selection, transfer explanation, and report generation.
+
 **FPL AI Copilot** represents a modern approach to AI engineering: decoupling strict mathematical constraints from qualitative LLM reasoning. Because LLMs notoriously struggle with the *Knapsack Optimization Problem* (e.g., maximizing squad Expected Points within a strict £100m budget), this pipeline delegates deterministic math to Python solvers and utilizes Generative AI strictly as an **Explanatory Layer** and **Contextual RAG Evaluator**.
 
-The result is a blazingly fast, hallucination-free dashboard that serves premium football analytics and actionable intelligence to Fantasy Premier League managers.
+The system utilizes a LangGraph workflow with data, fixture, form, captain, transfer, and report nodes; 3 agent modules for captain, transfer explanation, and report generation. The result is a blazingly fast, hallucination-free dashboard that serves premium football analytics and actionable intelligence to Fantasy Premier League managers.
 
 ---
 
@@ -51,13 +53,22 @@ graph TD
 
 ---
 
+## 🤔 Why This Architecture
+
+LLMs are weak at arithmetic and budget constraints, so the system separates:
+- deterministic solver: computes feasible transfer options
+- LLM agents: explain decisions and incorporate live news context
+- LangGraph: orchestrates the workflow and handles failure paths
+
+---
+
 ## 💻 Tech Stack
 
 ### AI & Backend
 *   **LangGraph / LangChain:** Core agent orchestration and state management
 *   **Groq (Kimi Model):** Ultra-low latency LLM inference
 *   **DuckDuckGo Search:** Live retrieval for RAG context
-*   **PuLP:** Linear optimization for budget/transfer constraints
+*   **Deterministic Solvers:** Constrained optimization for budget/transfer calculations
 *   **FastAPI / Uvicorn:** REST API layer handling async requests
 *   **LangSmith:** Prompt tracing and telemetry
 

@@ -37,12 +37,11 @@ def run_evaluation(team_id: int):
             print(final_state.get('final_report_markdown'))
             print("-" * 40)
             
-            # Simulated point comparison output to use as resume metrics
-            print("\n📊 Backtesting Metrics (Simulated Vs Baseline):")
+            # Simulated point comparison output
+            print("\n📊 Backtesting Metrics (Illustrative Sample Output):")
             print(" - Average Base Manager Score (Last 5 GWs): 245 pts")
             print(" - AI Copilot Proposed Teams Score:         312 pts")
             print(" - Delta/Improvement:                       +27.3%")
-            print("\nTip: Add this 27.3% improvement metric to your resume!")
 
     except Exception as e:
         print(f"\n[CRITICAL FAILURE] Pipeline crashed: {e}")

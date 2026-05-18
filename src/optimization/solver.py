@@ -1,4 +1,3 @@
-import pulp
 from typing import List, Dict, Any, Tuple, Optional
 
 def calculate_expected_points(player: dict, fixtures_by_team: dict) -> float:
@@ -30,7 +29,7 @@ def optimize_transfer_knapsack(
     fixtures_by_team: Dict[int, List[Dict[str, Any]]]
 ) -> Tuple[Dict[str, Any], Dict[str, Any], float]:
     """
-    Uses Linear Programming (PuLP) to solve the 1-transfer Knapsack problem.
+    Uses deterministic constrained optimization to solve the 1-transfer Knapsack problem.
     Maximizes total squad xP while respecting budget and positional constraints.
     """
     # 1. Calculate xP for all players
